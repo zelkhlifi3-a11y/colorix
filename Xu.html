@@ -1,0 +1,1252 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>COLORIX — نمنح المساحات لونها</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --purple:#6c5ce7;
+  --purple-deep:#4b3fc9;
+  --pink:#fd79a8;
+  --dark:#0b0a0f;
+  --light:#f8f9fa;
+  --lavender:#a29bfe;
+  --border:rgba(255,255,255,0.06);
+  --whatsapp:#25d366;
+  --glass:rgba(255,255,255,0.03);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:'Cairo',sans-serif;
+  background:var(--dark);
+  color:#f0edf5;
+  line-height:1.7;
+  overflow-x:hidden;
+}
+a{text-decoration:none;color:inherit;}
+ul{list-style:none;}
+img{max-width:100%;display:block;}
+.wrap{max-width:1180px;margin:0 auto;padding:0 28px;}
+
+/* ===== GLASSMORPHISM ===== */
+.glass{
+  background:var(--glass);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  border:1px solid var(--border);
+  border-radius:28px;
+  box-shadow:0 20px 40px -12px rgba(0,0,0,0.6);
+}
+
+header{
+  position:sticky; top:0; z-index:50;
+  background:rgba(11,10,15,0.7);
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);
+}
+.nav{
+  display:flex; align-items:center; justify-content:space-between;
+  padding:18px 0;
+}
+.logo{
+  font-weight:900; font-size:1.5rem; letter-spacing:0.5px;
+  display:flex; align-items:center; gap:8px;
+  background:linear-gradient(135deg,#e0d7ff,#a78bfa);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+.logo-dot{
+  width:12px; height:12px; border-radius:50%;
+  background:linear-gradient(135deg,var(--purple),var(--pink));
+  display:inline-block;
+}
+.nav-links{
+  display:flex; gap:34px; font-weight:600; font-size:0.98rem;
+  color:#cac3dd;
+}
+.nav-links a{position:relative; padding:6px 2px; transition:color .2s;}
+.nav-links a::after{
+  content:''; position:absolute; right:0; bottom:-2px; width:0; height:2px;
+  background:linear-gradient(90deg,var(--purple),var(--pink));
+  transition:width .25s ease;
+}
+.nav-links a:hover::after{width:100%;}
+.nav-links a:hover{color:#d6ccff;}
+.cta-btn{
+  background:linear-gradient(135deg,var(--purple),var(--pink));
+  color:#fff; font-weight:700; padding:11px 26px; border-radius:60px;
+  border:none; cursor:pointer; font-family:inherit; font-size:0.95rem;
+  box-shadow:0 6px 18px rgba(108,92,231,0.28);
+  transition:transform .2s ease, box-shadow .2s ease;
+}
+.cta-btn:hover{transform:translateY(-2px); box-shadow:0 10px 24px rgba(108,92,231,0.38);}
+
+.hamburger{
+  display:none; font-size:1.6rem; cursor:pointer; color:#cac3dd;
+}
+
+.hero{
+  position:relative;
+  padding:90px 0 60px;
+  overflow:hidden;
+}
+.hero-blob{
+  position:absolute; border-radius:50%; filter:blur(80px); opacity:0.25; z-index:0;
+}
+.hero-blob.b1{width:420px;height:420px; background:var(--purple); top:-140px; left:-120px;}
+.hero-blob.b2{width:380px;height:380px; background:var(--pink); bottom:-160px; right:-100px;}
+.hero-inner{
+  position:relative; z-index:1;
+  display:grid; grid-template-columns:1.1fr 0.9fr; gap:50px; align-items:center;
+}
+.eyebrow{
+  display:inline-flex; align-items:center; gap:8px;
+  font-weight:700; font-size:0.85rem; color:var(--lavender);
+  background:rgba(255,255,255,0.04); border:1px solid var(--border); padding:7px 16px; border-radius:999px;
+  margin-bottom:22px;
+}
+h1{
+  font-size:clamp(2.2rem, 4.2vw, 3.4rem);
+  font-weight:900; line-height:1.25; margin-bottom:22px;
+}
+h1 span{
+  background:linear-gradient(135deg,var(--purple),var(--pink));
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+.hero p.lead{
+  font-size:1.12rem; color:#b2abc7; max-width:52ch; margin-bottom:32px;
+}
+.hero-actions{display:flex; gap:16px; flex-wrap:wrap;}
+.btn-ghost{
+  padding:11px 26px; border-radius:60px; font-weight:700; font-size:0.95rem;
+  border:1px solid var(--border); color:#f0edf5; background:rgba(255,255,255,0.04);
+  transition:all .2s ease;
+}
+.btn-ghost:hover{background:rgba(255,255,255,0.08); border-color:rgba(255,255,255,0.2);}
+
+.chip-board{
+  position:relative;
+  background:rgba(255,255,255,0.03);
+  backdrop-filter:blur(12px);
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:22px;
+  box-shadow:0 20px 50px rgba(0,0,0,0.3);
+}
+.chip-board-title{
+  font-weight:700; font-size:0.85rem; color:#8f87aa; margin-bottom:16px;
+  display:flex; justify-content:space-between;
+}
+.chip-row{display:flex; gap:10px; height:230px;}
+.chip{
+  flex:1; border-radius:12px; position:relative; cursor:pointer;
+  transition:flex .35s cubic-bezier(.2,.8,.2,1), transform .35s ease;
+  display:flex; align-items:flex-end; overflow:hidden;
+}
+.chip:hover{flex:2.6;}
+.chip-label{
+  writing-mode:vertical-rl; text-orientation:mixed;
+  color:#fff; font-weight:700; font-size:0.82rem; padding:14px 8px;
+  opacity:0.9; white-space:nowrap;
+}
+.chip:hover .chip-label{writing-mode:horizontal-tb; font-size:0.8rem; opacity:1;}
+.chip-hex{
+  position:absolute; bottom:10px; right:12px; color:#fff; font-size:0.72rem;
+  opacity:0; transition:opacity .25s ease .1s; font-weight:600; direction:ltr;
+}
+.chip:hover .chip-hex{opacity:0.85;}
+.c1{background:#6c5ce7;}
+.c2{background:#8b7cf0;}
+.c3{background:#a29bfe;}
+.c4{background:#fd79a8;}
+.c5{background:#2d3436;}
+
+section{padding:86px 0;}
+.section-head{max-width:640px; margin-bottom:52px;}
+.section-head .eyebrow{margin-bottom:14px;}
+h2{font-size:clamp(1.7rem,3vw,2.4rem); font-weight:900; margin-bottom:14px;
+  background:linear-gradient(135deg,#e0d7ff,#a78bfa);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent;}
+.section-head p{color:#a09bb5; font-size:1.05rem;}
+
+.services{background:rgba(255,255,255,0.02); border-top:1px solid var(--border); border-bottom:1px solid var(--border);}
+.services-grid{
+  display:grid; grid-template-columns:repeat(3,1fr); gap:24px;
+}
+.service-card{
+  background:var(--glass); border:1px solid var(--border); border-radius:28px;
+  padding:32px 26px; transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+  position:relative; overflow:hidden; cursor:pointer;
+}
+.service-card::before{
+  content:''; position:absolute; inset:0 auto auto 0; width:100%; height:4px;
+  background:linear-gradient(90deg,var(--purple),var(--pink));
+  transform:scaleX(0); transform-origin:right; transition:transform .3s ease;
+}
+.service-card:hover{transform:translateY(-6px); border-color:rgba(167,139,250,0.25); box-shadow:0 20px 40px -12px rgba(0,0,0,0.5);}
+.service-card:hover::before{transform:scaleX(1);}
+.service-icon{
+  width:52px; height:52px; border-radius:14px; margin-bottom:20px;
+  display:flex; align-items:center; justify-content:center; font-size:1.4rem;
+  background:linear-gradient(135deg,var(--purple),var(--pink)); color:#fff;
+}
+.service-card h3{font-size:1.2rem; font-weight:700; margin-bottom:10px; color:#f0edf5;}
+.service-card p{color:#a8a1bd; font-size:0.96rem;}
+
+.portfolio-filter{
+  display:flex; gap:10px; flex-wrap:wrap; margin-bottom:30px;
+}
+.filter-btn{
+  padding:8px 20px; border-radius:50px; border:1px solid var(--border);
+  background:transparent; font-weight:600; font-size:0.85rem; cursor:pointer;
+  transition:all .2s; font-family:inherit; color:#cac3dd;
+}
+.filter-btn:hover, .filter-btn.active{
+  background:var(--purple); color:#fff; border-color:var(--purple);
+}
+.portfolio-grid{
+  display:grid; grid-template-columns:repeat(3,1fr); gap:22px;
+}
+.p-card{
+  border-radius:28px; overflow:hidden; border:1px solid var(--border);
+  background:rgba(255,255,255,0.02); transition:transform .25s ease, box-shadow .25s ease;
+  cursor:pointer;
+}
+.p-card:hover{transform:translateY(-5px); box-shadow:0 20px 40px -12px rgba(0,0,0,0.5);}
+.p-swatch{
+  height:170px; position:relative;
+  overflow:hidden;
+}
+.p-swatch img{
+  width:100%; height:100%; object-fit:cover;
+}
+.p-swatch::after{
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.5));
+}
+.p-tag{
+  position:absolute; top:14px; right:14px; background:rgba(11,10,15,0.8);
+  font-size:0.72rem; font-weight:700; padding:5px 12px; border-radius:999px; z-index:1;
+  color:var(--lavender); backdrop-filter:blur(8px);
+}
+.p-body{padding:18px 20px 22px;}
+.p-body h3{font-size:1.05rem; font-weight:700; margin-bottom:6px; color:#f0edf5;}
+.p-body p{font-size:0.9rem; color:#8f87aa;}
+
+.process{background:rgba(255,255,255,0.02); border-top:1px solid var(--border); border-bottom:1px solid var(--border);}
+.process .section-head p{color:#a09bb5;}
+.process .eyebrow{background:rgba(255,255,255,0.04); color:var(--lavender); border-color:var(--border);}
+.process-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:0;}
+.process-step{
+  padding:0 20px; position:relative;
+}
+.process-step:not(:last-child)::after{
+  content:''; position:absolute; top:26px; left:0; width:100%; height:1px;
+  background:var(--border);
+}
+.step-num{
+  width:52px; height:52px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+  background:linear-gradient(135deg,var(--purple),var(--pink)); font-weight:900; font-size:1.1rem;
+  margin-bottom:18px; position:relative; z-index:1; color:#fff;
+}
+.process-step h3{font-size:1.05rem; font-weight:700; margin-bottom:8px; color:#f0edf5;}
+.process-step p{color:#8f87aa; font-size:0.9rem;}
+
+/* ===== GALLERY SECTION ===== */
+.gallery-grid{
+  display:grid; grid-template-columns:repeat(4,1fr); gap:20px;
+}
+.gallery-item{
+  border-radius:20px; overflow:hidden; position:relative;
+  cursor:pointer; border:1px solid var(--border);
+  aspect-ratio:1/1;
+  transition:transform .3s ease, box-shadow .3s ease;
+  background:rgba(255,255,255,0.02);
+}
+.gallery-item:hover{
+  transform:scale(1.03); box-shadow:0 20px 40px -12px rgba(0,0,0,0.5);
+  z-index:2;
+}
+.gallery-item img{
+  width:100%; height:100%; object-fit:cover;
+}
+.gallery-item .overlay{
+  position:absolute; inset:0;
+  background:linear-gradient(0deg, rgba(108,92,231,0.7), transparent);
+  opacity:0; transition:opacity .3s ease;
+  display:flex; align-items:flex-end; padding:16px;
+}
+.gallery-item:hover .overlay{opacity:1;}
+.gallery-item .overlay span{
+  color:#fff; font-weight:700; font-size:0.9rem;
+}
+
+/* Lightbox */
+.lightbox{
+  position:fixed; inset:0; z-index:99999;
+  background:rgba(0,0,0,0.9);
+  display:none; align-items:center; justify-content:center;
+  padding:20px;
+  cursor:pointer;
+}
+.lightbox.active{display:flex;}
+.lightbox img{
+  max-width:90%; max-height:90vh; object-fit:contain;
+  border-radius:8px;
+  animation:modalIn .3s ease;
+}
+.lightbox .close-lightbox{
+  position:absolute; top:20px; right:30px;
+  color:#fff; font-size:40px; cursor:pointer;
+  font-weight:300;
+}
+.lightbox .counter{
+  position:absolute; bottom:30px; left:50%; transform:translateX(-50%);
+  color:#fff; font-size:16px; background:rgba(0,0,0,0.5);
+  padding:8px 20px; border-radius:20px;
+}
+
+.contact-page{
+  padding:60px 0;
+}
+.contact-grid{
+  display:grid; grid-template-columns:1fr 1fr; gap:50px;
+  align-items:start;
+}
+.contact-form{
+  background:var(--glass); border:1px solid var(--border); border-radius:28px; padding:36px;
+}
+.contact-form h2{font-size:1.6rem; margin-bottom:8px; -webkit-text-fill-color:#f0edf5;}
+.contact-form p{color:#8f87aa; margin-bottom:24px;}
+.contact-form label{display:block; font-weight:600; margin:14px 0 4px; font-size:14px; color:#cac3dd;}
+.contact-form input, .contact-form textarea, .contact-form select{
+  width:100%; padding:14px 18px; border:1px solid var(--border); border-radius:20px;
+  font-family:inherit; font-size:14px; outline:none; transition:border-color .2s;
+  background:rgba(255,255,255,0.04); color:#f0edf5;
+}
+.contact-form input:focus, .contact-form textarea:focus, .contact-form select:focus{
+  border-color:var(--purple);
+}
+.contact-form textarea{min-height:100px; resize:vertical;}
+.contact-form .cta-btn{width:100%; margin-top:16px;}
+.contact-info{display:flex; flex-direction:column; gap:24px;}
+.info-card{
+  background:var(--glass); border:1px solid var(--border); border-radius:20px; padding:24px;
+  display:flex; align-items:center; gap:16px;
+}
+.info-card .icon{
+  width:48px; height:48px; border-radius:50%;
+  background:linear-gradient(135deg,var(--purple),var(--pink));
+  display:flex; align-items:center; justify-content:center; color:#fff; font-size:18px;
+  flex-shrink:0;
+}
+.info-card h4{font-size:1rem; margin-bottom:2px; color:#f0edf5;}
+.info-card p{color:#8f87aa; font-size:0.9rem;}
+.info-card a{color:var(--lavender);}
+.info-card a:hover{color:#d6ccff;}
+.map-container{
+  border-radius:20px; overflow:hidden; border:1px solid var(--border);
+}
+
+.modal-overlay{
+  position:fixed; inset:0; z-index:9999;
+  background:rgba(0,0,0,0.6); backdrop-filter:blur(8px);
+  display:none; align-items:center; justify-content:center;
+  padding:20px;
+}
+.modal-overlay.active{display:flex;}
+.modal-box{
+  background:#1a1723; border-radius:28px; padding:30px;
+  max-width:480px; width:100%; max-height:90vh; overflow-y:auto;
+  box-shadow:0 20px 60px rgba(0,0,0,0.6);
+  position:relative;
+  border:1px solid var(--border);
+  animation:modalIn .3s ease;
+}
+@keyframes modalIn{
+  from{opacity:0; transform:scale(0.95) translateY(10px);}
+  to{opacity:1; transform:scale(1) translateY(0);}
+}
+.modal-close{
+  position:absolute; top:12px; left:12px;
+  width:32px; height:32px; border-radius:50%;
+  border:1px solid var(--border); background:rgba(255,255,255,0.04); color:#f0edf5; font-size:18px; cursor:pointer;
+  display:flex; align-items:center; justify-content:center;
+}
+.modal-box h2{font-size:22px; margin-bottom:16px; color:#f0edf5;}
+.modal-box label{display:block; font-weight:600; margin:12px 0 4px; font-size:14px; color:#cac3dd;}
+.modal-box input, .modal-box textarea, .modal-box select{
+  width:100%; padding:14px 18px; border:1px solid var(--border); border-radius:20px;
+  font-family:inherit; font-size:14px; outline:none;
+  background:rgba(255,255,255,0.04); color:#f0edf5;
+}
+.modal-box input:focus, .modal-box textarea:focus{border-color:var(--purple);}
+.modal-box textarea{min-height:80px; resize:vertical;}
+.modal-box .cta-btn{width:100%; margin-top:16px;}
+
+footer{background:rgba(255,255,255,0.02); border-top:1px solid var(--border); color:#8f87aa; padding:50px 0 26px;}
+.footer-grid{
+  display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:32px; margin-bottom:36px;
+}
+.footer-grid h4{color:#d6ccff; font-size:0.95rem; margin-bottom:16px;}
+.footer-grid li{margin-bottom:10px; font-size:0.9rem;}
+.footer-grid a:hover{color:#d6ccff;}
+.footer-logo{color:#fff; font-weight:900; font-size:1.3rem; margin-bottom:12px;}
+.footer-bottom{
+  border-top:1px solid var(--border); padding-top:22px;
+  display:flex; justify-content:space-between; font-size:0.85rem; flex-wrap:wrap; gap:10px;
+}
+
+.whatsapp-float{
+  position:fixed; bottom:90px; left:20px; z-index:9997;
+  width:60px; height:60px; border-radius:50%;
+  background:var(--whatsapp);
+  color:#fff;
+  display:flex; align-items:center; justify-content:center;
+  font-size:30px;
+  box-shadow:0 4px 16px rgba(37,211,102,0.3);
+  transition:transform .2s;
+  text-decoration:none;
+}
+.whatsapp-float:hover{transform:scale(1.1);}
+
+/* ===== FAQ CHAT BUBBLE ===== */
+.ai-bubble{
+  position:fixed; bottom:160px; right:20px; z-index:9998;
+  background:#1a1723; border-radius:20px;
+  width:360px; max-width:92vw;
+  box-shadow:0 20px 60px rgba(0,0,0,0.5);
+  border:1px solid var(--border);
+  display:none;
+  flex-direction:column;
+  animation:modalIn .3s ease;
+  max-height:500px;
+}
+.ai-bubble.active{display:flex;}
+.ai-bubble .header{
+  display:flex; justify-content:space-between; align-items:center;
+  padding:14px 18px;
+  font-weight:700; color:var(--lavender);
+  border-bottom:1px solid var(--border);
+  flex-shrink:0;
+}
+.ai-bubble .header button{
+  background:none; border:none; font-size:18px; cursor:pointer;
+  padding:0 6px; color:#8f87aa;
+}
+.ai-bubble .chat-messages{
+  flex:1;
+  padding:12px 16px;
+  overflow-y:auto;
+  max-height:300px;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  background:rgba(255,255,255,0.02);
+}
+.ai-bubble .chat-messages .msg{
+  padding:10px 14px;
+  border-radius:16px;
+  max-width:90%;
+  font-size:14px;
+  line-height:1.6;
+  word-wrap:break-word;
+}
+.ai-bubble .chat-messages .msg.user{
+  background:linear-gradient(135deg,var(--purple),var(--pink));
+  color:#fff;
+  align-self:flex-end;
+  border-bottom-left-radius:4px;
+}
+.ai-bubble .chat-messages .msg.bot{
+  background:rgba(255,255,255,0.04);
+  border:1px solid var(--border);
+  align-self:flex-start;
+  border-bottom-right-radius:4px;
+  color:#f0edf5;
+}
+.ai-bubble .quick-questions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+  padding:10px 14px 14px;
+  border-top:1px solid var(--border);
+  flex-shrink:0;
+}
+.ai-bubble .quick-questions button{
+  background:rgba(255,255,255,0.04);
+  border:1px solid var(--border);
+  border-radius:50px;
+  padding:5px 14px;
+  font-size:12px;
+  cursor:pointer;
+  font-family:inherit;
+  transition:all .2s;
+  color:#cac3dd;
+}
+.ai-bubble .quick-questions button:hover{
+  background:var(--purple);
+  color:#fff;
+  border-color:var(--purple);
+}
+.ai-bubble .chat-input-row{
+  display:flex;
+  gap:8px;
+  padding:8px 14px 14px;
+  border-top:1px solid var(--border);
+  flex-shrink:0;
+}
+.ai-bubble .chat-input-row input{
+  flex:1;
+  padding:10px 16px;
+  border:1px solid var(--border);
+  border-radius:50px;
+  font-family:inherit;
+  font-size:13px;
+  outline:none;
+  background:rgba(255,255,255,0.04);
+  color:#f0edf5;
+}
+.ai-bubble .chat-input-row input:focus{
+  border-color:var(--purple);
+}
+.ai-bubble .chat-input-row input::placeholder{color:#8f87aa;}
+.ai-bubble .chat-input-row button{
+  background:linear-gradient(135deg,var(--purple),var(--pink));
+  color:#fff;
+  border:none;
+  border-radius:50%;
+  width:38px;
+  height:38px;
+  cursor:pointer;
+  font-size:16px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-shrink:0;
+}
+
+.ai-btn{
+  position:fixed; bottom:24px; right:24px; z-index:9997;
+  background:linear-gradient(135deg,var(--purple),var(--pink));
+  color:#fff; border:none; border-radius:50px;
+  padding:14px 22px; font-family:'Cairo',sans-serif;
+  font-weight:700; font-size:14px; cursor:pointer;
+  box-shadow:0 8px 24px rgba(108,92,231,0.3);
+  transition:transform .2s;
+  display:flex; align-items:center; gap:8px;
+}
+.ai-btn:hover{transform:scale(1.05);}
+
+/* ===== MOBILE MENU ===== */
+@media (max-width:920px){
+  .hero-inner{grid-template-columns:1fr;}
+  .services-grid{grid-template-columns:repeat(2,1fr);}
+  .portfolio-grid{grid-template-columns:repeat(2,1fr);}
+  .gallery-grid{grid-template-columns:repeat(3,1fr);}
+  .process-grid{grid-template-columns:repeat(2,1fr); row-gap:36px;}
+  .process-step:nth-child(2)::after{display:none;}
+  .footer-grid{grid-template-columns:1fr 1fr;}
+  .contact-grid{grid-template-columns:1fr;}
+}
+@media (max-width:680px){
+  .nav-links{display:none;}
+  .nav-links.show{display:flex; flex-direction:column; gap:16px; position:absolute; top:70px; left:0; right:0; background:rgba(11,10,15,0.98); backdrop-filter:blur(20px); padding:30px 24px; border-bottom:1px solid var(--border);}
+  .hamburger{display:block;}
+  .services-grid, .portfolio-grid{grid-template-columns:1fr;}
+  .gallery-grid{grid-template-columns:repeat(2,1fr);}
+  .process-grid{grid-template-columns:1fr;}
+  .chip-row{height:160px;}
+  .footer-grid{grid-template-columns:1fr;}
+  .footer-bottom{flex-direction:column; text-align:center;}
+  .ai-btn{padding:12px 16px; font-size:12px; bottom:16px; right:16px;}
+  .ai-bubble{max-width:95%; bottom:80px; right:10px; max-height:400px;}
+  .ai-bubble .chat-messages{max-height:200px;}
+  .whatsapp-float{width:50px;height:50px;font-size:24px;bottom:80px;left:16px;}
+  .contact-form{padding:20px;}
+}
+
+</style>
+</head>
+<body>
+
+<body>
+
+<header>
+  <div class="wrap nav">
+    <div class="logo"><span class="logo-dot"></span>COLORIX</div>
+    <nav class="nav-links" id="navLinks">
+      <a href="#services">خدماتنا</a>
+      <a href="#portfolio">معرض الأعمال</a>
+      <a href="#gallery">صورنا</a>
+      <a href="#process">كيف نعمل</a>
+      <a href="#contact-page">اتصل بنا</a>
+    </nav>
+    <div class="hamburger" id="hamburger"><i class="fas fa-bars"></i></div>
+    <button class="cta-btn" onclick="openModal()">ابدأ مشروعك</button>
+  </div>
+</header>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="hero-blob b1"></div>
+  <div class="hero-blob b2"></div>
+  <div class="wrap hero-inner">
+    <div>
+      <span class="eyebrow">🎨 خبراء الألوان والدهانات</span>
+      <h1>كل مساحة تستاهل <span>اللون الصحيح</span></h1>
+      <p class="lead">COLORIX تجمع بين الاستشارة اللونية والتنفيذ الاحترافي، باش نحولو الجدران والواجهات لهوية بصرية كتعبر عليك، بدقة وجودة ثابتة.</p>
+      <div class="hero-actions">
+        <button class="cta-btn" onclick="openModal()">اطلب معاينة مجانية</button>
+        <a href="#portfolio" class="btn-ghost">شوف أعمالنا</a>
+      </div>
+    </div>
+    <div class="chip-board">
+      <div class="chip-board-title"><span>لوحة الألوان</span><span>مرر الفأرة</span></div>
+      <div class="chip-row">
+        <div class="chip c1"><span class="chip-label">بنفسجي رئيسي</span><span class="chip-hex">#6C5CE7</span></div>
+        <div class="chip c2"><span class="chip-label">بنفسجي متوسط</span><span class="chip-hex">#8B7CF0</span></div>
+        <div class="chip c3"><span class="chip-label">لافندر فاتح</span><span class="chip-hex">#A29BFE</span></div>
+        <div class="chip c4"><span class="chip-label">وردي حيوي</span><span class="chip-hex">#FD79A8</span></div>
+        <div class="chip c5"><span class="chip-label">أسود دافئ</span><span class="chip-hex">#2D3436</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SERVICES ===== -->
+<section class="services" id="services">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">خدماتنا</span>
+      <h2>من الاستشارة حتى آخر لمسة</h2>
+      <p>كل خدمة مبنية على فهم دقيق للمساحة والضوء والاستعمال، قبل ما نختارو أي لون.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card" onclick="openService('استشارة الألوان', '')">
+        <div class="service-icon">✦</div>
+        <h3>استشارة الألوان</h3>
+        <p>نحللو الإضاءة والمساحة ونقترحو لوحة ألوان كتناسب الأجواء اللي بغيتي.</p>
+      </div>
+      <div class="service-card" onclick="openService('صباغة داخلية', '')">
+        <div class="service-icon">🖌</div>
+        <h3>صباغة داخلية</h3>
+        <p>تنفيذ نظيف ودقيق للجدران والأسقف، بمواد عالية الجودة ونتيجة تدوم.</p>
+      </div>
+      <div class="service-card" onclick="openService('طلاء الواجهات', '')">
+        <div class="service-icon">🏛</div>
+        <h3>طلاء الواجهات</h3>
+        <p>حماية وتجميل الواجهات الخارجية بدهانات مقاومة للطقس والزمن.</p>
+      </div>
+      <div class="service-card" onclick="openService('دهان الأثاث والديكور', '')">
+        <div class="service-icon">🪑</div>
+        <h3>دهان الأثاث والديكور</h3>
+        <p>تجديد الأثاث والقطع الديكورية بألوان ولمسات نهائية مخصصة.</p>
+      </div>
+      <div class="service-card" onclick="openService('مساحات تجارية', '')">
+        <div class="service-icon">🏢</div>
+        <h3>مساحات تجارية</h3>
+        <p>هوية لونية للمحلات والمكاتب كتعكس الهوية البصرية ديال البراند.</p>
+      </div>
+      <div class="service-card" onclick="openService('عروض أسعار واضحة', '')">
+        <div class="service-icon">🧾</div>
+        <h3>عروض أسعار واضحة</h3>
+        <p>تقدير دقيق للتكلفة والمدة قبل البداية، بلا مفاجآت.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PORTFOLIO ===== -->
+<section id="portfolio">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">معرض الأعمال</span>
+      <h2>لوحات ألوان نفذناها</h2>
+      <p>نماذج من مشاريع حققناها لعملائنا، كل مشروع بلوحة ألوان خاصة بيه.</p>
+    </div>
+    <div class="portfolio-filter">
+      <button class="filter-btn active" onclick="filterProjects('all')">الكل</button>
+      <button class="filter-btn" onclick="filterProjects('سكني')">🏠 سكني</button>
+      <button class="filter-btn" onclick="filterProjects('تجاري')">🏢 تجاري</button>
+      <button class="filter-btn" onclick="filterProjects('واجهة')">🏛 واجهات</button>
+      <button class="filter-btn" onclick="filterProjects('مكاتب')">📋 مكاتب</button>
+    </div>
+    <div class="portfolio-grid">
+      <div class="p-card" data-category="سكني" onclick="openProject('شقة بحي أكدال', 'بنفسجية هادئة', 'https://i.postimg.cc/QKGwtNs7/img11.jpg')">
+        <div class="p-swatch"><img src="https://i.postimg.cc/QKGwtNs7/img11.jpg" alt="شقة" onerror="this.src='https://placehold.co/600x400/6c5ce7/fff?text=شقة'"><span class="p-tag">سكني</span></div>
+        <div class="p-body"><h3>شقة بحي أكدال</h3><p>لوحة بنفسجية هادئة لغرف المعيشة والنوم.</p></div>
+      </div>
+      <div class="p-card" data-category="تجاري" onclick="openProject('صالون تجميل', 'وردي دافئ', 'https://i.postimg.cc/QKGwtNs7/img11.jpg')">
+        <div class="p-swatch"><img src="https://i.postimg.cc/QKGwtNs7/img11.jpg" alt="صالون" onerror="this.src='https://placehold.co/600x400/fd79a8/fff?text=صالون'"><span class="p-tag">تجاري</span></div>
+        <div class="p-body"><h3>صالون تجميل</h3><p>هوية وردية دافئة كتعكس طابع المكان.</p></div>
+      </div>
+      <div class="p-card" data-category="مكاتب" onclick="openProject('مكتب استشارات', 'داكن وأنيق', 'https://i.postimg.cc/QKGwtNs7/img11.jpg')">
+        <div class="p-swatch"><img src="https://i.postimg.cc/QKGwtNs7/img11.jpg" alt="مكتب" onerror="this.src='https://placehold.co/600x400/2d3436/fff?text=مكتب'"><span class="p-tag">مكاتب</span></div>
+        <div class="p-body"><h3>مكتب استشارات</h3><p>درجات داكنة وأنيقة لجو احترافي.</p></div>
+      </div>
+      <div class="p-card" data-category="واجهة" onclick="openProject('واجهة مطعم', 'تدرج لوني جذاب', 'https://i.postimg.cc/dZPp1Qvr/img9.jpg')">
+        <div class="p-swatch"><img src="https://i.postimg.cc/dZPp1Qvr/img9.jpg" alt="واجهة" onerror="this.src='https://placehold.co/600x400/6c5ce7/fd79a8?text=واجهة'"><span class="p-tag">واجهة</span></div>
+        <div class="p-body"><h3>واجهة مطعم</h3><p>تدرج لوني جذاب يبرز من بعيد.</p></div>
+      </div>
+      <div class="p-card" data-category="سكني" onclick="openProject('فيلا خاصة', 'لافندر فاتح', 'https://i.postimg.cc/xNDhCjYk/img13.jpg')">
+        <div class="p-swatch"><img src="https://i.postimg.cc/xNDhCjYk/img13.jpg" alt="فيلا" onerror="this.src='https://placehold.co/600x400/a29bfe/fff?text=فيلا'"><span class="p-tag">سكني</span></div>
+        <div class="p-body"><h3>فيلا خاصة</h3><p>لمسات لافندر فاتحة للراحة البصرية.</p></div>
+      </div>
+      <div class="p-card" data-category="تجاري" onclick="openProject('معرض أزياء', 'تباين لوني قوي', 'https://i.postimg.cc/XBSmJN3p/img14.jpg')">
+        <div class="p-swatch"><img src="https://i.postimg.cc/XBSmJN3p/img14.jpg" alt="معرض" onerror="this.src='https://placehold.co/600x400/fd79a8/6c5ce7?text=معرض'"><span class="p-tag">تجاري</span></div>
+        <div class="p-body"><h3>معرض أزياء</h3><p>تباين لوني قوي يبرز المنتجات.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== GALLERY ===== -->
+<section id="gallery" style="background:rgba(255,255,255,0.02);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">📸 معرض الصور</span>
+      <h2>أعمالنا في صور</h2>
+      <p>شوف مجموعة من المشاريع اللي أنجزناها بألوان وديكورات متنوعة.</p>
+    </div>
+    <div class="gallery-grid" id="galleryGrid"></div>
+  </div>
+</section>
+
+<!-- ===== PROCESS ===== -->
+<section class="process" id="process">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">كيف نعمل</span>
+      <h2>مسار واضح من أول تواصل حتى التسليم</h2>
+    </div>
+    <div class="process-grid">
+      <div class="process-step"><div class="step-num">1</div><h3>تواصل ومعاينة</h3><p>كنجيو نشوفو المكان ونسمعو احتياجاتك.</p></div>
+      <div class="process-step"><div class="step-num">2</div><h3>اقتراح الألوان</h3><p>كنقترحو لوحة ألوان مع عينات حقيقية.</p></div>
+      <div class="process-step"><div class="step-num">3</div><h3>التنفيذ</h3><p>فريقنا كينفذ بدقة واحترام للمواعيد.</p></div>
+      <div class="process-step"><div class="step-num">4</div><h3>التسليم والمتابعة</h3><p>معاينة نهائية وضمان على الجودة.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CONTACT ===== -->
+<section class="contact-page" id="contact-page">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">تواصل معنا</span>
+      <h2>نحن هنا لمساعدتك</h2>
+      <p>تواصل معنا اليوم وحدد معاينة مجانية، وغادي نرجعو ليك فأقرب وقت.</p>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-form">
+        <h2>📋 أرسل لنا طلبك</h2>
+        <p>املأ النموذج وسنرد عليك عبر واتساب</p>
+        <form onsubmit="sendWhatsAppContact(event)">
+          <label>الاسم الكامل</label>
+          <input type="text" id="whatsappName" placeholder="أحمد محمد" required>
+          <label>رقم الهاتف</label>
+          <input type="tel" id="whatsappPhone" placeholder="06XX-XXXXXX" required>
+          <label>نوع الخدمة</label>
+          <select id="whatsappService">
+            <option value="">اختر الخدمة...</option>
+            <option value="استشارة الألوان">استشارة الألوان</option>
+            <option value="صباغة داخلية">صباغة داخلية</option>
+            <option value="طلاء الواجهات">طلاء الواجهات</option>
+            <option value="دهان الأثاث والديكور">دهان الأثاث والديكور</option>
+            <option value="مساحات تجارية">مساحات تجارية</option>
+            <option value="أخرى">أخرى</option>
+          </select>
+          <label>الرسالة</label>
+          <textarea id="whatsappMessage" placeholder="أخبرنا عن رؤيتك..."></textarea>
+          <button type="submit" class="cta-btn"><i class="fab fa-whatsapp"></i> إرسال عبر واتساب</button>
+        </form>
+        <div id="whatsappResult" style="display:none;margin-top:12px;padding:12px;border-radius:12px;background:rgba(37,211,102,0.1);color:#25d366;text-align:center;"></div>
+      </div>
+      
+      <div>
+        <div class="contact-info">
+          <div class="info-card">
+            <div class="icon"><i class="fas fa-phone"></i></div>
+            <div><h4>الهاتف</h4><p><a href="tel:+212629320365">+212 716-853621</a></p></div>
+          </div>
+          <div class="info-card">
+            <div class="icon"><i class="fas fa-envelope"></i></div>
+            <div><h4>البريد الإلكتروني</h4><p><a href="mailto:adilelkhlifi4@gmail.com">adilelkhlifi4@gmail.com</a></p></div>
+          </div>
+          <div class="info-card">
+            <div class="icon"><i class="fas fa-map-marker-alt"></i></div>
+            <div><h4>العنوان</h4><p>Riad ouislane, Meknès, Maroc</p></div>
+          </div>
+          <div class="info-card">
+            <div class="icon"><i class="fab fa-whatsapp"></i></div>
+            <div><h4>واتساب</h4><p><a href="https://wa.me/212716853621" target="_blank">+212629320365</a></p></div>
+          </div>
+        </div>
+        <div class="map-container">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3310.123456!2d-5.56789!3d33.89123!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzPCsDUzJzI4LjQiTiA1wrAzNCcwNS4yIld!5e0!3m2!1sar!2sma!4v1700000000000" width="100%" height="300" style="border:0;border-radius:16px;" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">COLORIX</div>
+        <p style="font-size:0.9rem; color:#8f87aa; max-width:32ch;">نمنح المساحات هويتها اللونية، بخبرة واحترافية.</p>
+      </div>
+      <div>
+        <h4>روابط</h4>
+        <ul>
+          <li><a href="#services">خدماتنا</a></li>
+          <li><a href="#portfolio">معرض الأعمال</a></li>
+          <li><a href="#gallery">صورنا</a></li>
+          <li><a href="#process">كيف نعمل</a></li>
+          <li><a href="#contact-page">اتصل بنا</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>تابعنا</h4>
+        <ul>
+          <li><a href="https://www.facebook.com/share/1BSTv9L4uM/" target="_blank"><i class="fab fa-facebook"></i> فيسبوك</a></li>
+          <li><a href="https://wa.me/212629320365" target="_blank"><i class="fab fa-whatsapp"></i> واتساب</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>تواصل</h4>
+        <ul>
+          <li><a href="mailto:adilelkhlifi4@gmail.com">zelkhlifi3@gmail.com</a></li>
+          <li><a href="tel:+212629320365">+212 716-853621</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>COLORIX © 2026 جميع الحقوق محفوظة</span>
+      <span>صنع بشغف للون ✦</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ===== WHATSAPP FLOATING ===== -->
+<a href="https://wa.me/212629320365?text=مرحباً%20أريد%20استشارة%20لونية%20من%20COLORIX" target="_blank" class="whatsapp-float" title="تواصل عبر واتساب">
+  <i class="fab fa-whatsapp"></i>
+</a>
+
+<!-- ===== FAQ CHAT BUBBLE (محلي، بلا API) ===== -->
+<div class="ai-bubble" id="aiBubble">
+  <div class="header">
+    <span>🎨 مساعد COLORIX</span>
+    <button onclick="closeAI()">✕</button>
+  </div>
+  <div class="chat-messages" id="chatMessages">
+    <div class="msg bot">👋 مرحبا! عندي إجابات على الأسئلة الشائعة ديال خدماتنا، الأسعار، طريقة العمل والألوان. اختار سؤال ولا كتب واحد.</div>
+  </div>
+  <div class="quick-questions">
+    <button onclick="sendQuick('شنو هي الخدمات ديالكم؟')">🛠️ الخدمات</button>
+    <button onclick="sendQuick('شحال تكلفة الصباغة؟')">💰 الأسعار</button>
+    <button onclick="sendQuick('كيفاش كتخدمو؟')">📋 طريقة العمل</button>
+    <button onclick="sendQuick('شنو اللون المناسب لصالون؟')">🛋️ اقتراح لون</button>
+  </div>
+  <div class="chat-input-row">
+    <input type="text" id="chatInput" placeholder="اكتب سؤالك..." onkeypress="if(event.key==='Enter') sendMessage()">
+    <button onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
+  </div>
+</div>
+
+<button class="ai-btn" onclick="toggleAI()">
+  <span>🎨</span> اسأل المساعد
+</button>
+
+<!-- ===== MODAL ===== -->
+<div class="modal-overlay" id="modal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <h2>📋 طلب معاينة مجانية</h2>
+    <form onsubmit="sendWhatsAppModal(event)">
+      <label>الاسم الكامل</label>
+      <input type="text" id="modalName" placeholder="أحمد محمد" required>
+      <label>رقم الهاتف</label>
+      <input type="tel" id="modalPhone" placeholder="06XX-XXXXXX" required>
+      <label>نوع المساحة</label>
+      <input type="text" id="modalSpace" placeholder="شقة، فيلا، محل، مكتب...">
+      <label>الرسالة</label>
+      <textarea id="modalMessage" placeholder="أخبرنا عن رؤيتك..."></textarea>
+      <button type="submit" class="cta-btn"><i class="fab fa-whatsapp"></i> إرسال عبر واتساب</button>
+    </form>
+    <div id="modalResult" style="display:none;margin-top:12px;padding:12px;border-radius:12px;background:rgba(37,211,102,0.1);color:#25d366;text-align:center;"></div>
+  </div>
+</div>
+
+<!-- ===== LIGHTBOX ===== -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <span class="close-lightbox" onclick="closeLightbox()">×</span>
+  <img id="lightboxImg" src="" alt="">
+  <div class="counter" id="lightboxCounter"></div>
+</div>
+
+
+<script>
+// ============================================================
+//  📸 GALLERY DATA - جميع الصور (14 صورة)
+// ============================================================
+const galleryImages = [
+  { src: 'https://i.postimg.cc/LgKwX4Rg/img0.jpg', title: 'مشروع سكني - غرفة معيشة' },
+  { src: 'https://i.postimg.cc/QKGwtNs7/img11.jpg', title: 'مشروع تجاري - صالون' },
+  { src: 'https://i.postimg.cc/dZPp1Qvy/img12.jpg', title: 'واجهة خارجية' },
+  { src: 'https://i.postimg.cc/xNDhCjYk/img13.jpg', title: 'مكتب عصري' },
+  { src: 'https://i.postimg.cc/XBSmJN3p/img14.jpg', title: 'مطبخ حديث' },
+  { src: 'https://i.postimg.cc/Lgt7Zd6q/img5.jpg', title: 'غرفة نوم' },
+  { src: 'https://i.postimg.cc/jn0m5qK6/img6.jpg', title: 'حمام أنيق' },
+  { src: 'https://i.postimg.cc/dZ2XTMtL/img7.jpg', title: 'رواق مدخل' },
+  { src: 'https://i.postimg.cc/0KRFQ5xp/img8.jpg', title: 'مشروع جديد 1' },
+  { src: 'https://i.postimg.cc/dZPp1Qvr/img9.jpg', title: 'مشروع جديد 2' },
+  { src: 'https://i.postimg.cc/0bNFy41m/img1.jpg', title: 'تصميم داخلي 1' },
+  { src: 'https://i.postimg.cc/GHpVmfnB/img2.jpg', title: 'تصميم داخلي 2' },
+  { src: 'https://i.postimg.cc/fJbpRPQ7/img3.jpg', title: 'تصميم داخلي 3' },
+  { src: 'https://i.postimg.cc/w7BZjrYR/img4.jpg', title: 'تصميم داخلي 4' },
+];
+
+// ============================================================
+//  📸 BUILD GALLERY
+// ============================================================
+function buildGallery() {
+  const grid = document.getElementById('galleryGrid');
+  grid.innerHTML = '';
+  galleryImages.forEach((img, index) => {
+    const item = document.createElement('div');
+    item.className = 'gallery-item';
+    item.innerHTML = `
+      <img src="${img.src}" alt="${img.title}" loading="lazy" onerror="this.src='https://placehold.co/600x600/2a2440/8f87aa?text=صورة'">
+      <div class="overlay"><span>${img.title}</span></div>
+    `;
+    item.onclick = () => openLightbox(index);
+    grid.appendChild(item);
+  });
+}
+
+// ============================================================
+//  💡 LIGHTBOX
+// ============================================================
+let currentImageIndex = 0;
+
+function openLightbox(index) {
+  currentImageIndex = index;
+  const lightbox = document.getElementById('lightbox');
+  const img = document.getElementById('lightboxImg');
+  img.src = galleryImages[index].src;
+  img.alt = galleryImages[index].title;
+  document.getElementById('lightboxCounter').textContent = `${index+1} / ${galleryImages.length}`;
+  lightbox.classList.add('active');
+}
+
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('active');
+}
+
+// Keyboard navigation for lightbox
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeLightbox();
+  if (e.key === 'ArrowLeft' && document.getElementById('lightbox').classList.contains('active')) {
+    currentImageIndex = (currentImageIndex - 1 + galleryImages.length) % galleryImages.length;
+    openLightbox(currentImageIndex);
+  }
+  if (e.key === 'ArrowRight' && document.getElementById('lightbox').classList.contains('active')) {
+    currentImageIndex = (currentImageIndex + 1) % galleryImages.length;
+    openLightbox(currentImageIndex);
+  }
+});
+
+// ============================================================
+//  📱 رقم واتساب وإيميل
+// ============================================================
+const WHATSAPP_NUMBER = "212629320365";
+const EMAIL = "adilelkhlifi4@gmail.com";
+
+// ============================================================
+//  📤 متغيرات لحفظ الصورة المختارة
+// ============================================================
+let selectedProjectImage = '';
+let selectedProjectName = '';
+let selectedServiceName = '';
+
+// ============================================================
+//  🖱️ SERVICE CLICK - حفظ الصورة (إذا كانت موجودة)
+// ============================================================
+function openService(name, imgUrl) {
+  selectedServiceName = name;
+  selectedProjectImage = imgUrl || '';
+  selectedProjectName = '';
+  openModal();
+  document.getElementById('modalSpace').value = name;
+  document.getElementById('modalMessage').value = 'أريد استشارة حول خدمة: ' + name;
+}
+
+// ============================================================
+//  🖱️ PROJECT CLICK - حفظ الصورة
+// ============================================================
+function openProject(name, desc, imgUrl) {
+  selectedProjectName = name;
+  selectedProjectImage = imgUrl || '';
+  selectedServiceName = '';
+  openModal();
+  document.getElementById('modalSpace').value = name;
+  document.getElementById('modalMessage').value = 'أعجبني مشروع: ' + name + ' - ' + desc;
+}
+
+// ============================================================
+//  📱 إرسال عبر واتساب مع الصورة
+// ============================================================
+function sendWhatsAppContact(e) {
+  e.preventDefault();
+  const name = document.getElementById('whatsappName').value.trim();
+  const phone = document.getElementById('whatsappPhone').value.trim();
+  const service = document.getElementById('whatsappService').value;
+  const msg = document.getElementById('whatsappMessage').value.trim();
+  if (!name || !phone) {
+    showResult('⚠️ الرجاء تعبئة الاسم ورقم الهاتف', '#f8d7da', 'whatsappResult');
+    return;
+  }
+  
+  // بناء الرسالة مع الصورة إذا كانت موجودة
+  let message = `🆕 طلب جديد من COLORIX\n\n👤 الاسم: ${name}\n📱 الهاتف: ${phone}\n🏠 الخدمة: ${service || 'غير محدد'}\n📝 الرسالة: ${msg || 'لا توجد رسالة'}`;
+  
+  // إضافة معلومات الصورة المختارة
+  if (selectedProjectImage) {
+    message += `\n\n🖼️ الصورة المختارة: ${selectedProjectImage}`;
+  }
+  if (selectedProjectName) {
+    message += `\n📌 المشروع: ${selectedProjectName}`;
+  }
+  if (selectedServiceName) {
+    message += `\n📌 الخدمة: ${selectedServiceName}`;
+  }
+  
+  window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, '_blank');
+  showResult('✅ تم فتح واتساب! أرسل الرسالة.', '#d4edda', 'whatsappResult');
+  document.getElementById('whatsappResult').closest('form').reset();
+  
+  // إعادة تعيين المتغيرات
+  selectedProjectImage = '';
+  selectedProjectName = '';
+  selectedServiceName = '';
+}
+
+function sendWhatsAppModal(e) {
+  e.preventDefault();
+  const name = document.getElementById('modalName').value.trim();
+  const phone = document.getElementById('modalPhone').value.trim();
+  const space = document.getElementById('modalSpace').value.trim();
+  const msg = document.getElementById('modalMessage').value.trim();
+  if (!name || !phone) {
+    showResult('⚠️ الرجاء تعبئة الاسم ورقم الهاتف', '#f8d7da', 'modalResult');
+    return;
+  }
+  
+  let message = `🆕 طلب معاينة من COLORIX\n\n👤 الاسم: ${name}\n📱 الهاتف: ${phone}\n🏠 المساحة: ${space || 'غير محدد'}\n📝 الرسالة: ${msg || 'لا توجد رسالة'}`;
+  
+  // إضافة الصورة المختارة
+  if (selectedProjectImage) {
+    message += `\n\n🖼️ الصورة المختارة: ${selectedProjectImage}`;
+  }
+  if (selectedProjectName) {
+    message += `\n📌 المشروع: ${selectedProjectName}`;
+  }
+  if (selectedServiceName) {
+    message += `\n📌 الخدمة: ${selectedServiceName}`;
+  }
+  
+  window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, '_blank');
+  showResult('✅ تم فتح واتساب! أرسل الرسالة.', '#d4edda', 'modalResult');
+  document.getElementById('modalResult').closest('form').reset();
+  
+  // إعادة تعيين المتغيرات
+  selectedProjectImage = '';
+  selectedProjectName = '';
+  selectedServiceName = '';
+}
+
+// ============================================================
+//  🏷️ PORTFOLIO FILTER
+// ============================================================
+function filterProjects(category) {
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.textContent === category || (category === 'all' && btn.textContent === 'الكل'));
+  });
+  document.querySelectorAll('.p-card').forEach(card => {
+    card.style.display = (category === 'all' || card.dataset.category === category) ? 'block' : 'none';
+  });
+}
+
+// ============================================================
+//  🎯 MODAL FUNCTIONS
+// ============================================================
+function openModal() {
+  document.getElementById('modal').classList.add('active');
+  document.getElementById('modalResult').style.display = 'none';
+}
+function closeModal() {
+  document.getElementById('modal').classList.remove('active');
+}
+
+// ============================================================
+//  🎨 FAQ CHAT ASSISTANT (محلي بالكامل - بلا API ولا سيرفر)
+// ============================================================
+function toggleAI() {
+  const bubble = document.getElementById('aiBubble');
+  const isActive = bubble.classList.contains('active');
+  if (isActive) {
+    closeAI();
+  } else {
+    bubble.classList.add('active');
+    document.getElementById('chatInput').focus();
+  }
+}
+
+function closeAI() {
+  document.getElementById('aiBubble').classList.remove('active');
+}
+
+function sendQuick(question) {
+  document.getElementById('chatInput').value = question;
+  sendMessage();
+}
+
+function sendMessage() {
+  const input = document.getElementById('chatInput');
+  const question = input.value.trim();
+  if (!question) return;
+  input.value = '';
+  addMessage(question, 'user');
+  const answer = getLocalAnswer(question);
+  // شوية تأخير بسيط باش يبان طبيعي، بلا اتصال بالإنترنت
+  setTimeout(() => addMessage(answer, 'bot'), 350);
+}
+
+function addMessage(text, sender) {
+  const container = document.getElementById('chatMessages');
+  const div = document.createElement('div');
+  div.className = `msg ${sender}`;
+  div.textContent = text;
+  container.appendChild(div);
+  container.scrollTop = container.scrollHeight;
+}
+
+// ------------------------------------------------------------
+// قاعدة المعرفة: كل موضوع فيه كلمات مفتاحية + جواب جاهز
+// ------------------------------------------------------------
+const FAQ_KB = [
+  {
+    keywords: ['خدم', 'خدمات', 'شنو كتديرو', 'واش كتديرو'],
+    answer: 'كنقدمو: استشارة الألوان، صباغة داخلية، طلاء الواجهات، دهان الأثاث والديكور، مساحات تجارية، وعروض أسعار واضحة. شوف قسم "خدماتنا" فوق للتفاصيل.'
+  },
+  {
+    keywords: ['ثمن', 'سعر', 'تكلفة', 'تمن', 'فلوس', 'شحال'],
+    answer: 'التكلفة كتختلف حسب المساحة ونوع الخدمة. الأحسن تعبي الفورم ولا تبعت لينا رسالة فواتساب مع تفاصيل المشروع، وغادي نعطيوك تقدير دقيق بلا مفاجآت.'
+  },
+  {
+    keywords: ['كيفاش كتخدمو', 'طريقة العمل', 'مراحل', 'خطوات', 'برنامج الخدمة'],
+    answer: 'كنخدمو ف4 مراحل: 1) تواصل ومعاينة، 2) اقتراح لوحة ألوان، 3) التنفيذ، 4) التسليم والمتابعة مع ضمان الجودة.'
+  },
+  {
+    keywords: ['صالون', 'غرفة معيشة', 'ليفينغ'],
+    answer: 'لصالون أو غرفة المعيشة، درجات اللافندر الفاتح أو البنفسجي المتوسط كتعطي جو دافئ ومريح، مع لمسة وردية خفيفة فالتفاصيل.'
+  },
+  {
+    keywords: ['مطبخ', 'كوزينة'],
+    answer: 'للمطبخ، الألوان الفاتحة والمحايدة (أبيض دافئ، بيج، رمادي فاتح) كتعطي إحساس بالنظافة والاتساع، مع إمكانية إضافة لون قوي كديتاي فخزانة ولا حائط واحد.'
+  },
+  {
+    keywords: ['غرفة نوم', 'بيدروم', 'نوم'],
+    answer: 'لغرفة النوم، درجات هادئة بحال البنفسجي الفاتح ولا الرمادي الدافئ كتعاون على الاسترخاء والنوم الهادئ.'
+  },
+  {
+    keywords: ['واجهة', 'خارجي', 'فاسادة'],
+    answer: 'للواجهات الخارجية كنستعملو دهانات مقاومة للطقس والزمن، مع لوحة ألوان كتبرز الهوية البصرية ديال المكان من بعيد.'
+  },
+  {
+    keywords: ['مكتب', 'تجاري', 'محل', 'براند'],
+    answer: 'للمساحات التجارية والمكاتب، كنبنيو هوية لونية كتعكس البراند ديالك، غالبا بدرجات أنيقة وداكنة مع لمسات مميزة.'
+  },
+  {
+    keywords: ['تواصل', 'اتصال', 'هاتف', 'رقم', 'ايميل', 'إيميل', 'واتساب'],
+    answer: 'تقدر تتواصل معنا فواتساب مباشرة من الزر الأخضر تحت، ولا عبر الهاتف/الإيميل الموجودين فقسم "اتصل بنا".'
+  },
+  {
+    keywords: ['فين', 'عنوان', 'لوكاسيون', 'موقعكم'],
+    answer: 'كاينين فـ Riad Ouislane, Meknès. شوف قسم "اتصل بنا" فيه الخريطة كاملة.'
+  },
+  {
+    keywords: ['معاينة', 'موعد', 'زيارة'],
+    answer: 'تقدر تطلب معاينة مجانية عبر زر "اطلب معاينة مجانية" فوق، ولا تعبي الفورم فقسم الاتصال وغادي نتواصلو معاك.'
+  }
+];
+
+function getLocalAnswer(question) {
+  const q = question.toLowerCase().trim();
+  for (const item of FAQ_KB) {
+    if (item.keywords.some(k => q.includes(k))) {
+      return item.answer;
+    }
+  }
+  return 'ما قدرتش نلقى جواب دقيق على هاد السؤال. الأحسن تواصل معنا مباشرة عبر واتساب وغادي نجاوبوك بسرعة 🙂';
+}
+
+// ============================================================
+//  🛠️ HELPERS
+// ============================================================
+function showResult(text, bg, id) {
+  const el = document.getElementById(id);
+  el.textContent = text;
+  el.style.display = 'block';
+  el.style.background = bg;
+  el.style.color = bg === '#d4edda' ? '#155724' : '#721c24';
+  el.style.padding = '12px';
+  el.style.borderRadius = '12px';
+  el.style.textAlign = 'center';
+  setTimeout(() => { el.style.display = 'none'; }, 5000);
+}
+
+// ============================================================
+//  📱 MOBILE MENU
+// ============================================================
+document.getElementById('hamburger').addEventListener('click', function() {
+  document.getElementById('navLinks').classList.toggle('show');
+});
+
+document.querySelectorAll('.nav-links a').forEach(link => {
+  link.addEventListener('click', () => {
+    document.getElementById('navLinks').classList.remove('show');
+  });
+});
+
+// ============================================================
+//  🚀 INIT
+// ============================================================
+buildGallery();
+
+// ============================================================
+//  ⌨️ KEYBOARD SHORTCUTS
+// ============================================================
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') { closeModal(); closeAI(); }
+});
+
+console.log('🎨 COLORIX — نمنح المساحات لونها');
+console.log('📱 واتساب: ' + WHATSAPP_NUMBER);
+console.log('📧 إيميل: ' + EMAIL);
+console.log('🤖 البوت شغال مع Gemini API');
+console.log('📸 معرض الصور جاهز مع 14 صورة');
+console.log('✅ جاهز 100%');
+
+</script>
+</body>
+</html>
